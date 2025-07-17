@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Meal</title> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <h1 class="mb-4">Edit Meal</h1>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Meal Name:</label>
+                <input type="text" name="meal_name" class="form-control" value="{{ meal.name }}" required>
+            </div>
+
+            <h3 class="mt-4">Ingredients</h3>
+            {% for i in range(10) %}
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" placeholder="Ingredient name"
+                               name="ingredient_name_{{ i }}"
+                               value="{{ meal.ingredients[i].name if i < meal.ingredients|length else '' }}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" step="any" class="form-control" placeholder="Quantity"
+                               name="ingredient_qty_{{ i }}"
+                               value="{{ meal.ingredients[i].quantity if i < meal.ingredients|length else '' }}">
+                    </div>
+                    <div class="col-md-3">
+                        <select name="ingredient_unit_{{ i }}" class="form-select">
+                            {% set selected_unit = meal.ingredients[i].unit if i < meal.ingredients|length else '' %}
+                            <option value="" {% if selected_unit == '' %}selected{% endif %}>-- Unit --</option>
+                            <option value="g" {% if selected_unit == 'g' %}selected{% endif %}>Grams</option>
+                            <option value="kg" {% if selected_unit == 'kg' %}selected{% endif %}>Kilograms</option>
+                            <option value="ml" {% if selected_unit == 'ml' %}selected{% endif %}>Millilitres</option>
+                            <option value="l" {% if selected_unit == 'l' %}selected{% endif %}>Litres</option>
+                            <option value="tbsp" {% if selected_unit == 'tbsp' %}selected{% endif %}>Tablespoon</option>
+                            <option value="tsp" {% if selected_unit == 'tsp' %}selected{% endif %}>Teaspoon</option>
+                            <option value="cup" {% if selected_unit == 'cup' %}selected{% endif %}>Cup</option>
+                            <option value="pcs" {% if selected_unit == 'pcs' %}selected{% endif %}>Pieces</option>
+                            <option value="cloves" {% if selected_unit == 'cloves' %}selected{% endif %}>Cloves</option>
+                        </select>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-success">💾 Save Changes</button>
+            <a href="/" class="btn btn-secondary ms-2">⬅️ Back to Home</a>
+        </form>
+    </div>
+</body>
+</html>
