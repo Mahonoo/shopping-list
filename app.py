@@ -1,12 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict
-
-app = Flask(__name__)
-
-# SQLite database file (in the project folder)
 import os
 
+app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -140,9 +137,14 @@ def plan_meals():
 
     return render_template('plan.html', meals=meals, shopping_list=shopping_list)
 
+# ------------------- TEMP ROUTE TO INITIALIZE DB -------------------
+
+@app.route('/init-db')
+def init_db():
+    db.create_all()
+    return '✅ Database tables created!'
+
 # ------------------- App Start -------------------
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
