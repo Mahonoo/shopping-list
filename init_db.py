@@ -7,7 +7,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Define models (copied from app.py)
+# Define models directly here (don't import from app.py)
 class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -24,5 +24,6 @@ class Ingredient(db.Model):
 
 with app.app_context():
     db.create_all()
-    print("✅ Tables created.")
+    print("✅ Tables created successfully.")
+
 
