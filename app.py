@@ -5,7 +5,9 @@ from collections import defaultdict
 app = Flask(__name__)
 
 # SQLite database file (in the project folder)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meals.db'
+import os
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
