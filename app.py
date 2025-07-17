@@ -42,7 +42,7 @@ def add_meal():
         db.session.add(new_meal)
         db.session.commit()
 
-        for i in range(10):
+        for i in range(20):
             ing_name = request.form.get(f'ingredient_name_{i}')
             qty = request.form.get(f'ingredient_qty_{i}')
             unit = request.form.get(f'ingredient_unit_{i}')
